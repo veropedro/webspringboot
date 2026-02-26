@@ -35,8 +35,8 @@ pipeline {
                 // récupération du dépôt GitHub du projet+
 
                 git branch: 'main',
-                    credentialsId: 'jenkins_github_PAT',
-                    url: 'https://github.com/neojero/webSpringboot2025.git'
+                    credentialsId: 'token_jenkins2',
+                    url: 'https://github.com/veropedro/webspringboot.git'
             }
         }
 //        // construction du JAR ou WAR avec maven
