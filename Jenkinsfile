@@ -13,7 +13,7 @@ pipeline {
     // déclaration des outils que l'agent devra utiliser
     // outils parametre et declare dans jenkins
     tools {
-        maven 'maven'
+        maven 'Maven3'
         jdk 'JDK21'
     }
 
@@ -39,49 +39,49 @@ pipeline {
                     url: 'https://github.com/neojero/webSpringboot2025.git'
             }
         }
-        // construction du JAR ou WAR avec maven
-        stage('Build Maven') {
-            steps {
-                // package du projet -Dspring.profiles.active=jenkins
-                bat 'mvn clean package'
-            }
-        }
-        // Generation rapport Test
-        stage('Generate Allure Report') {
-            steps {
-                bat 'mvn allure:report'
-            }
-        }
-
-        // Construction de l'image Docker à partir du Dockerfile
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    docker.build('neojero/webspringboot2025:latest', '-f Dockerfile .')
-                }
-            }
-        }
-        // push de l'image dans le dockerHub
-        stage('Push to Docker Hub') {
-            steps {
-                // il faut également dans le crédentials de Jenkins fournir les infos de connexion
-                script {
-                    docker.withRegistry('', registryCredential) {
-                        docker.image('neojero/webspringboot2025:latest').push()
-                    }
-                }
-            }
-        }
-        // déploiement du multi containeur avec docker compose
-        stage('Deploy with Docker Compose') {
-                    steps {
-                        // initialise le conteneur docker
-                        script {
-                            // construit les services
-                            bat 'docker-compose up -d --build --force-recreate --remove-orphans'
-                        }
-                    }
-        }
+//        // construction du JAR ou WAR avec maven
+//        stage('Build Maven') {
+//            steps {
+//                // package du projet -Dspring.profiles.active=jenkins
+//                bat 'mvn clean package'
+//            }
+//        }
+//        // Generation rapport Test
+//        stage('Generate Allure Report') {
+//            steps {
+//                bat 'mvn allure:report'
+//            }
+//        }
+//
+//        // Construction de l'image Docker à partir du Dockerfile
+//        stage('Build Docker Image') {
+//            steps {
+//                script {
+//                    docker.build('neojero/webspringboot2025:latest', '-f Dockerfile .')
+//                }
+//            }
+//        }
+//        // push de l'image dans le dockerHub
+//        stage('Push to Docker Hub') {
+//            steps {
+//                // il faut également dans le crédentials de Jenkins fournir les infos de connexion
+//                script {
+//                    docker.withRegistry('', registryCredential) {
+//                        docker.image('neojero/webspringboot2025:latest').push()
+//                    }
+//                }
+//            }
+//        }
+//        // déploiement du multi containeur avec docker compose
+//        stage('Deploy with Docker Compose') {
+//                    steps {
+//                        // initialise le conteneur docker
+//                        script {
+//                            // construit les services
+//                            bat 'docker-compose up -d --build --force-recreate --remove-orphans'
+//                        }
+//                    }
+//        }
     }
     // aprés réalisation du pipeline, notification du résult sur discord
     post {

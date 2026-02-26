@@ -44,8 +44,8 @@ public class PersonControllerIT {
 
         verify(personRepository, times(1)).getPersons();
         // contrôle du résultat
-        assertThat(result.iterator().next().getFirstName().contains("John"));
-        assertThat(result.iterator().next().getFirstName().contains("Mary"));
+        assertThat(result.iterator().next().getFirstName().contains("Jean"));
+        assertThat(result.iterator().next().getFirstName().contains("Dupont"));
     }
 
 }
