@@ -3,7 +3,7 @@ name: springboot-appweb-2025
 services:
   mysql_server:
     #build: ./infra/mysql
-    image: mysql:latest
+    image: mysql:8.0
     container_name: mysql_server
     restart : always
     ports:
@@ -21,27 +21,12 @@ services:
     networks:
       - backend
 
-  phpmyadmin:
-    image: phpmyadmin:5.2.0
-    container_name: phpmyadmin
-    depends_on:
-      - mysql_server
-    environment:
-      PMA_HOST: mysql_server
-      PMA_PORT: 3306
-    ports:
-      - "8081:80"
-    networks:
-      - backend
-
   apiprojet:
     image: ${API_IMAGE_NAME}
     container_name: apiprojet
     restart: on-failure
-    volumes:
-      - ${CONFIG_FOR_DOCKER}/application-API.properties:/app/application.properties
     ports:
-      - "9010:9000"
+      - "9090:9090"
     environment:
       - SPRING_DATASOURCE_URL=${URL_BDD}
       - SPRING_DATASOURCE_USERNAME=${MYSQL_USER}
@@ -50,8 +35,6 @@ services:
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=${JPA_DIALECT}
       - SPRING_JPA_SHOW_SQL=true
       - SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL=true
-      # configuration de l'application spingboot api
-      - SPRING_CONFIG_LOCATION=/app/application.properties
     depends_on:
       - mysql_server
     networks:
@@ -61,7 +44,7 @@ services:
     image: ${WEB_IMAGE_NAME}
     container_name: webprojet
     ports:
-      - "9090:9090"
+      - "8095:9095"
     depends_on:
       - apiprojet
     environment:
@@ -69,7 +52,7 @@ services:
       - FR.POMPEY.CDA23016.WEBPROJET.URLAPI=${URL_API}
     # Un appel HTTP est effectué sur la route http://apiprojet:9000/persons
     healthcheck:
-      test: curl -f http://apiprojet:9000/persons || exit 1
+      test: curl -f http://apiprojet:9090/api/persons || exit 1
       interval: 10s
       retries: 5
       start_period: 5s

@@ -73,16 +73,16 @@ pipeline {
             }
         }
 
-//        // déploiement du multi containeur avec docker compose
-//        stage('Deploy with Docker Compose') {
-//                    steps {
-//                        // initialise le conteneur docker
-//                        script {
-//                            // construit les services
-//                            bat 'docker-compose up -d --build --force-recreate --remove-orphans'
-//                        }
-//                    }
-//        }
+        // déploiement du multi containeur avec docker compose
+        stage('Deploy with Docker Compose') {
+                    steps {
+                        // initialise le conteneur docker
+                        script {
+                            // construit les services
+                            bat 'docker-compose up -d --build --force-recreate --remove-orphans'
+                        }
+                    }
+        }
     }
     // aprés réalisation du pipeline, notification du résult sur discord
     post {
