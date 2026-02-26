@@ -7,7 +7,7 @@ pipeline {
         registry = "veropedro/webspringboot2026"
         // compte DockerHub paramétré sur le serveur Jenkins
         // dans la rubrique Credentials de l'administration serveur
-        registryCredential = 'DockerHubAccount'
+        registryCredential = 'jenkins-token'
         dockerImage = ''
     }
     // déclaration des outils que l'agent devra utiliser
@@ -62,16 +62,17 @@ pipeline {
             }
         }
         // push de l'image dans le dockerHub
-//        stage('Push to Docker Hub') {
-//            steps {
-//                // il faut également dans le crédentials de Jenkins fournir les infos de connexion
-//                script {
-//                    docker.withRegistry('', registryCredential) {
-//                        docker.image('neojero/webspringboot2025:latest').push()
-//                    }
-//                }
-//            }
-//        }
+        stage('Push to Docker Hub') {
+            steps {
+                // il faut également dans le crédentials de Jenkins fournir les infos de connexion
+                script {
+                    docker.withRegistry('', registryCredential) {
+                        docker.image('veropedro/webspringboot2026:latest').push()
+                    }
+                }
+            }
+        }
+
 //        // déploiement du multi containeur avec docker compose
 //        stage('Deploy with Docker Compose') {
 //                    steps {
