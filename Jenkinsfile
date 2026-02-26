@@ -46,13 +46,13 @@ pipeline {
                 bat 'mvn clean verify'
             }
         }
-//        // Generation rapport Test
-//        stage('Generate Allure Report') {
-//            steps {
-//                bat 'mvn allure:report'
-//            }
-//        }
-//
+        // Generation rapport Test
+        stage('Generate Allure Report') {
+            steps {
+                bat 'mvn allure:report'
+            }
+        }
+
 //        // Construction de l'image Docker à partir du Dockerfile
 //        stage('Build Docker Image') {
 //            steps {
