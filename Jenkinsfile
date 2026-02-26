@@ -53,15 +53,15 @@ pipeline {
             }
         }
 
-//        // Construction de l'image Docker à partir du Dockerfile
-//        stage('Build Docker Image') {
-//            steps {
-//                script {
-//                    docker.build('neojero/webspringboot2025:latest', '-f Dockerfile .')
-//                }
-//            }
-//        }
-//        // push de l'image dans le dockerHub
+        // Construction de l'image Docker à partir du Dockerfile
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build('veropedro/webspringboot2026:latest', '-f Dockerfile .')
+                }
+            }
+        }
+        // push de l'image dans le dockerHub
 //        stage('Push to Docker Hub') {
 //            steps {
 //                // il faut également dans le crédentials de Jenkins fournir les infos de connexion

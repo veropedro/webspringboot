@@ -1,5 +1,5 @@
 # Utilisation de l'image Alpine de base
-FROM openjdk:21
+FROM eclipse-temurin:21-jdk
 
 # Définir des variables d'environnement
 ENV APP_HOME=/app
