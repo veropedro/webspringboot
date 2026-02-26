@@ -39,13 +39,13 @@ pipeline {
                     url: 'https://github.com/veropedro/webspringboot.git'
             }
         }
-//        // construction du JAR ou WAR avec maven
-//        stage('Build Maven') {
-//            steps {
-//                // package du projet -Dspring.profiles.active=jenkins
-//                bat 'mvn clean package'
-//            }
-//        }
+        // construction du JAR ou WAR avec maven
+        stage('Build Maven') {
+            steps {
+                // package du projet -Dspring.profiles.active=jenkins
+                bat 'mvn clean verify'
+            }
+        }
 //        // Generation rapport Test
 //        stage('Generate Allure Report') {
 //            steps {
